@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
+    <property name="dialect">org.hibernate.dialect.SQLiteDialect</property>
+    <property name="connection.driver_class">org.sqlite.JDBC</property>
+    <property name="connection.url">jdbc:sqlite:money.db</property>
+    <property name="connection.username"/>
+    <property name="connection.password"/>
+    <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
+    <property name="hibernate.hbm2ddl.auto">create-drop</property>
+    <mapping class="net.money2013.win.hb.model.Pay"/>
+    <mapping class="net.money2013.win.hb.model.Account"/>
+    <mapping class="net.money2013.win.hb.model.Category"/>
+  </session-factory>
+</hibernate-configuration>
