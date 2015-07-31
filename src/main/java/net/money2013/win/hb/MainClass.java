@@ -16,7 +16,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import net.money2013.win.hb.controller.PayListController;
 import net.money2013.win.hb.dal.AccountDAL;
+import net.money2013.win.hb.dal.CategoryDAL;
 import net.money2013.win.hb.dal.PayDAL;
+import net.money2013.win.hb.net.utils.RestClient;
+import net.money2013.win.hb.net.utils.SerialDB;
 import net.money2013.win.hb.util.HibernateUtil;
 import org.hibernate.Session;
 
@@ -31,7 +34,7 @@ public class MainClass extends Application {
     
     public static void main(String[] args) {
         Session session=HibernateUtil.getSessionFactory().openSession();
-
+/*
         session.beginTransaction();
         try {
             for(int iA=0;iA<5;iA++) {
@@ -41,6 +44,7 @@ public class MainClass extends Application {
                 account.setDeleted(false);
                 account.setNotes("notes");
                 account.setName("a"+Integer.toString(iA));
+                account.setCurrency("USD");
                 session.save(account);
                 for(int iP=0;iP<5;iP++) {
                     PayDAL pay=new PayDAL();
@@ -54,10 +58,31 @@ public class MainClass extends Application {
                     session.save(pay);
                 }
             }
+            
+            for(int iC=0;iC<5;iC++) {
+                CategoryDAL category=new CategoryDAL();
+                category.setGuid(UUID.randomUUID().toString());
+                category.setModified(true);
+                category.setDeleted(false);
+                category.setNotes("notes");
+                category.setName("c"+Integer.toString(iC));
+                session.save(category);
+            }
             session.getTransaction().commit();
         } catch(Exception e) {            
             session.getTransaction().rollback();
             System.out.println("Exception:"+e.getLocalizedMessage());
+        }
+*/        
+        String gson;
+
+        try {
+            RestClient client=RestClient.getInstance();
+            gson=client.sendSyncData("test", "test", SerialDB.serial());
+            SerialDB.deserial(gson);
+            System.out.println(gson);
+        } catch(Exception e) {
+            e.printStackTrace();
         }
         
         launch(args);

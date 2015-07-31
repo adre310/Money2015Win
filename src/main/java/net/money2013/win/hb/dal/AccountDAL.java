@@ -30,75 +30,75 @@ public class AccountDAL {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private long mId;
+    private long id;
     @Column(name = COL_GUID,length = 50)
-    private String mGuid;
+    private String guid;
     @Column(name = COL_MODIFIED)
-    private boolean mModified;
+    private boolean isModified;
     @Column(name = COL_DELETED)
-    private boolean mDeleted;
+    private boolean isDeleted;
     @Column(name = COL_NOTES,length = 2000)
-    private String mNotes;
+    private String notes;
     
     @Column(name = COL_NAME,length = 255)
-    private String mName;
+    private String name;
     @Column(name = COL_CURRENCY,length = 10)
-    private String mCurrency;
+    private String currency;
 
     public long getId() {
-        return mId;
+        return id;
     }
 
     public void setId(long mId) {
-        this.mId = mId;
+        this.id = mId;
     }
 
     public String getGuid() {
-        return mGuid;
+        return guid;
     }
 
     public void setGuid(String mGuid) {
-        this.mGuid = mGuid;
+        this.guid = mGuid;
     }
 
     public boolean isModified() {
-        return mModified;
+        return isModified;
     }
 
     public void setModified(boolean mModified) {
-        this.mModified = mModified;
+        this.isModified = mModified;
     }
 
     public boolean isDeleted() {
-        return mDeleted;
+        return isDeleted;
     }
 
     public void setDeleted(boolean mDeleted) {
-        this.mDeleted = mDeleted;
+        this.isDeleted = mDeleted;
     }
 
     public String getNotes() {
-        return mNotes;
+        return notes;
     }
 
     public void setNotes(String mNotes) {
-        this.mNotes = mNotes;
+        this.notes = mNotes;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public void setName(String mName) {
-        this.mName = mName;
+        this.name = mName;
     }
 
     public String getCurrency() {
-        return mCurrency;
+        return currency;
     }
 
     public void setCurrency(String mCurrency) {
-        this.mCurrency = mCurrency;
+        this.currency = mCurrency;
     }
 
     

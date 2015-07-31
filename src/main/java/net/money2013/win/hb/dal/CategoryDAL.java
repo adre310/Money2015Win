@@ -30,86 +30,85 @@ public class CategoryDAL {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private long mId;
+    private long id;
     @Column(name = COL_GUID,length = 50)
-    private String mGuid;
+    private String guid;
     @Column(name = COL_MODIFIED)
-    private boolean mModified;
+    private boolean isModified;
     @Column(name = COL_DELETED)
-    private boolean mDeleted;
+    private boolean isDeleted;
     @Column(name = COL_NOTES,length = 2000)
-    private String mNotes;
+    private String notes;
     
     @Column(name = COL_NAME,length = 255)
-    private String mName;
+    private String name;
     @Column(name = COL_ISDEFAULT)
-    private boolean mIsDefault;
+    private boolean isDefault;
     @Column(name = COL_THEME)
-    private int mTheme;
+    private int theme;
 
-    public long getmId() {
-        return mId;
+    public long getId() {
+        return id;
     }
 
-    public void setmId(long mId) {
-        this.mId = mId;
+    public void setId(long mId) {
+        this.id = mId;
     }
 
-    public String getmGuid() {
-        return mGuid;
+    public String getGuid() {
+        return guid;
     }
 
-    public void setmGuid(String mGuid) {
-        this.mGuid = mGuid;
+    public void setGuid(String mGuid) {
+        this.guid = mGuid;
     }
 
-    public boolean ismModified() {
-        return mModified;
+    public boolean isModified() {
+        return isModified;
     }
 
-    public void setmModified(boolean mModified) {
-        this.mModified = mModified;
+    public void setModified(boolean mModified) {
+        this.isModified = mModified;
     }
 
-    public boolean ismDeleted() {
-        return mDeleted;
+    public boolean isDeleted() {
+        return isDeleted;
     }
 
-    public void setmDeleted(boolean mDeleted) {
-        this.mDeleted = mDeleted;
+    public void setDeleted(boolean mDeleted) {
+        this.isDeleted = mDeleted;
     }
 
-    public String getmNotes() {
-        return mNotes;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setmNotes(String mNotes) {
-        this.mNotes = mNotes;
+    public void setNotes(String mNotes) {
+        this.notes = mNotes;
     }
 
-    public String getmName() {
-        return mName;
+    public String getName() {
+        return name;
     }
 
-    public void setmName(String mName) {
-        this.mName = mName;
+    public void setName(String mName) {
+        this.name = mName;
     }
 
-    public boolean ismIsDefault() {
-        return mIsDefault;
+    public boolean isIsDefault() {
+        return isDefault;
     }
 
-    public void setmIsDefault(boolean mIsDefault) {
-        this.mIsDefault = mIsDefault;
+    public void setIsDefault(boolean mIsDefault) {
+        this.isDefault = mIsDefault;
     }
 
-    public int getmTheme() {
-        return mTheme;
+    public int getTheme() {
+        return theme;
     }
 
-    public void setmTheme(int mTheme) {
-        this.mTheme = mTheme;
+    public void setTheme(int mTheme) {
+        this.theme = mTheme;
     }
-    
-    
+        
 }

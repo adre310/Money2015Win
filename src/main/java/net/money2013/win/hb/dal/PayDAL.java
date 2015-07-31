@@ -39,136 +39,136 @@ public class PayDAL {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private long mId;
+    private long id;
     @Column(name = COL_GUID,length = 50)
-    private String mGuid;
+    private String guid;
     @Column(name = COL_MODIFIED)
-    private boolean mModified;
+    private boolean isModified;
     @Column(name = COL_DELETED)
-    private boolean mDeleted;
+    private boolean isDeleted;
     @Column(name = COL_NOTES,length = 2000)
-    private String mNotes;
+    private String isNotes;
     @Column(name = COL_VALUE)
-    private double mValue;
+    private double payValue;
     @Column(name = COL_CREATED)
-    private Date mCreated;
+    private Date created;
     @Column(name = COL_CREATEDYEAR)
-    private int mCreatedYear;
+    private int createdYear;
     @Column(name = COL_CREATEDMONTH)
-    private int mCreatedMonth;
+    private int createdMonth;
     @Column(name = COL_CREATEDDAY)
-    private int mCreatedDay;
+    private int createdDay;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = COL_ACCOUNT)
-    private AccountDAL mAccount;
+    private AccountDAL account;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = COL_CATEGORY)    
-    private CategoryDAL mCategory;
+    private CategoryDAL category;
     @Column(name = COL_ISSYSTEM)
-    private boolean mIsSystem;
+    private boolean isSystem;
 
     public long getId() {
-        return mId;
+        return id;
     }
 
     public void setId(long mId) {
-        this.mId = mId;
+        this.id = mId;
     }
 
     public String getGuid() {
-        return mGuid;
+        return guid;
     }
 
     public void setGuid(String mGuid) {
-        this.mGuid = mGuid;
+        this.guid = mGuid;
     }
 
     public boolean isModified() {
-        return mModified;
+        return isModified;
     }
 
     public void setModified(boolean mModified) {
-        this.mModified = mModified;
+        this.isModified = mModified;
     }
 
     public boolean isDeleted() {
-        return mDeleted;
+        return isDeleted;
     }
 
     public void setDeleted(boolean mDeleted) {
-        this.mDeleted = mDeleted;
+        this.isDeleted = mDeleted;
     }
 
     public String getNotes() {
-        return mNotes;
+        return isNotes;
     }
 
     public void setNotes(String mNotes) {
-        this.mNotes = mNotes;
+        this.isNotes = mNotes;
     }
 
     public double getValue() {
-        return mValue;
+        return payValue;
     }
 
     public void setValue(double mValue) {
-        this.mValue = mValue;
+        this.payValue = mValue;
     }
 
     public Date getCreated() {
-        return mCreated;
+        return created;
     }
 
     public void setCreated(Date mCreated) {
-        this.mCreated = mCreated;
+        this.created = mCreated;
     }
 
     public int getCreatedYear() {
-        return mCreatedYear;
+        return createdYear;
     }
 
     public void setCreatedYear(int mCreatedYear) {
-        this.mCreatedYear = mCreatedYear;
+        this.createdYear = mCreatedYear;
     }
 
     public int getCreatedMonth() {
-        return mCreatedMonth;
+        return createdMonth;
     }
 
     public void setCreatedMonth(int mCreatedMonth) {
-        this.mCreatedMonth = mCreatedMonth;
+        this.createdMonth = mCreatedMonth;
     }
 
     public int getCreatedDay() {
-        return mCreatedDay;
+        return createdDay;
     }
 
     public void setCreatedDay(int mCreatedDay) {
-        this.mCreatedDay = mCreatedDay;
+        this.createdDay = mCreatedDay;
     }
 
     public AccountDAL getAccount() {
-        return mAccount;
+        return account;
     }
 
     public void setAccount(AccountDAL mAccount) {
-        this.mAccount = mAccount;
+        this.account = mAccount;
     }
 
     public CategoryDAL getCategory() {
-        return mCategory;
+        return category;
     }
 
     public void setCategory(CategoryDAL mCategory) {
-        this.mCategory = mCategory;
+        this.category = mCategory;
     }
 
-    public boolean isIsSystem() {
-        return mIsSystem;
+    public boolean isSystem() {
+        return isSystem;
     }
 
-    public void setIsSystem(boolean mIsSystem) {
-        this.mIsSystem = mIsSystem;
+    public void setSystem(boolean mIsSystem) {
+        this.isSystem = mIsSystem;
     }
     
 }
