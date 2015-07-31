@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.money2013.win.hb.model;
+package net.money2013.win.hb.dal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,15 +17,15 @@ import javax.persistence.Table;
  * @author aisaev
  */
 @Entity
-@Table(name = "categories")
-public class Category {
+@Table(name = "accounts")
+public class AccountDAL {
+
     public static final String COL_GUID = "r_guid";
     public static final String COL_MODIFIED = "modified";
     public static final String COL_DELETED = "deleted";
     public static final String COL_NOTES = "notes";
     public static final String COL_NAME = "name";
-    public static final String COL_ISDEFAULT = "is_default";
-    public static final String COL_THEME = "theme_id";
+    public static final String COL_CURRENCY = "currency";
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -42,74 +42,64 @@ public class Category {
     
     @Column(name = COL_NAME,length = 255)
     private String mName;
-    @Column(name = COL_ISDEFAULT)
-    private boolean mIsDefault;
-    @Column(name = COL_THEME)
-    private int mTheme;
+    @Column(name = COL_CURRENCY,length = 10)
+    private String mCurrency;
 
-    public long getmId() {
+    public long getId() {
         return mId;
     }
 
-    public void setmId(long mId) {
+    public void setId(long mId) {
         this.mId = mId;
     }
 
-    public String getmGuid() {
+    public String getGuid() {
         return mGuid;
     }
 
-    public void setmGuid(String mGuid) {
+    public void setGuid(String mGuid) {
         this.mGuid = mGuid;
     }
 
-    public boolean ismModified() {
+    public boolean isModified() {
         return mModified;
     }
 
-    public void setmModified(boolean mModified) {
+    public void setModified(boolean mModified) {
         this.mModified = mModified;
     }
 
-    public boolean ismDeleted() {
+    public boolean isDeleted() {
         return mDeleted;
     }
 
-    public void setmDeleted(boolean mDeleted) {
+    public void setDeleted(boolean mDeleted) {
         this.mDeleted = mDeleted;
     }
 
-    public String getmNotes() {
+    public String getNotes() {
         return mNotes;
     }
 
-    public void setmNotes(String mNotes) {
+    public void setNotes(String mNotes) {
         this.mNotes = mNotes;
     }
 
-    public String getmName() {
+    public String getName() {
         return mName;
     }
 
-    public void setmName(String mName) {
+    public void setName(String mName) {
         this.mName = mName;
     }
 
-    public boolean ismIsDefault() {
-        return mIsDefault;
+    public String getCurrency() {
+        return mCurrency;
     }
 
-    public void setmIsDefault(boolean mIsDefault) {
-        this.mIsDefault = mIsDefault;
+    public void setCurrency(String mCurrency) {
+        this.mCurrency = mCurrency;
     }
 
-    public int getmTheme() {
-        return mTheme;
-    }
-
-    public void setmTheme(int mTheme) {
-        this.mTheme = mTheme;
-    }
-    
     
 }

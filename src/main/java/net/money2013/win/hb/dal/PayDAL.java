@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.money2013.win.hb.model;
+package net.money2013.win.hb.dal;
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -22,7 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pays")
-public class Pay {
+public class PayDAL {
     public static final String COL_GUID = "r_guid";
     public static final String COL_MODIFIED = "modified";
     public static final String COL_DELETED = "deleted";
@@ -60,10 +60,10 @@ public class Pay {
     private int mCreatedDay;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = COL_ACCOUNT)
-    private Account mAccount;
+    private AccountDAL mAccount;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = COL_CATEGORY)    
-    private Category mCategory;
+    private CategoryDAL mCategory;
     @Column(name = COL_ISSYSTEM)
     private boolean mIsSystem;
 
@@ -147,19 +147,19 @@ public class Pay {
         this.mCreatedDay = mCreatedDay;
     }
 
-    public Account getAccount() {
+    public AccountDAL getAccount() {
         return mAccount;
     }
 
-    public void setAccount(Account mAccount) {
+    public void setAccount(AccountDAL mAccount) {
         this.mAccount = mAccount;
     }
 
-    public Category getCategory() {
+    public CategoryDAL getCategory() {
         return mCategory;
     }
 
-    public void setCategory(Category mCategory) {
+    public void setCategory(CategoryDAL mCategory) {
         this.mCategory = mCategory;
     }
 
