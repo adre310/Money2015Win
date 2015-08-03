@@ -176,6 +176,6 @@ public class SerialDB {
             }
         }
         
-        session.getTransaction().commit();
+       session.getTransaction().commit();
     }
 }

@@ -10,6 +10,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
+import com.sun.xml.internal.messaging.saaj.util.Base64;
 import java.io.IOException;
 import java.security.cert.X509Certificate;
 import javax.net.ssl.HostnameVerifier;
