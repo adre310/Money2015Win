@@ -16,6 +16,7 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import net.money2013.win.hb.dal.PayDAL;
+import net.money2013.win.hb.util.CurrencyUtil;
 
 /**
  *
@@ -27,7 +28,7 @@ public class PayView {
     private SimpleBooleanProperty mModified;
     private SimpleBooleanProperty mDeleted;
     private SimpleStringProperty mNotes;
-    private SimpleDoubleProperty mValue;
+    private SimpleStringProperty mValue;
     private ObjectProperty<LocalDate> mCreated;
     private ObjectProperty<AccountView> mAccount;
     private ObjectProperty<CategoryView> mCategory;
@@ -39,7 +40,7 @@ public class PayView {
         mModified=new SimpleBooleanProperty(pay.isModified());
         mDeleted=new SimpleBooleanProperty(pay.isDeleted());
         mNotes=new SimpleStringProperty(pay.getNotes());
-        mValue=new SimpleDoubleProperty(pay.getValue());
+        mValue=new SimpleStringProperty(CurrencyUtil.currencyToString(pay.getValue(),pay.getAccount()==null?"":pay.getAccount().getCurrency()));
         mCreated=new SimpleObjectProperty<LocalDate>(LocalDateTime.ofInstant(Instant.ofEpochMilli(pay.getCreated().getTime()), ZoneId.systemDefault()).toLocalDate());
     }
     
@@ -47,80 +48,39 @@ public class PayView {
         return mId;
     }
 
-    public void setId(SimpleLongProperty mId) {
-        this.mId = mId;
-    }
-
     public SimpleStringProperty getGuid() {
         return mGuid;
-    }
-
-    public void setGuid(SimpleStringProperty mGuid) {
-        this.mGuid = mGuid;
     }
 
     public SimpleBooleanProperty getModified() {
         return mModified;
     }
 
-    public void setModified(SimpleBooleanProperty mModified) {
-        this.mModified = mModified;
-    }
-
     public SimpleBooleanProperty getDeleted() {
         return mDeleted;
-    }
-
-    public void setDeleted(SimpleBooleanProperty mDeleted) {
-        this.mDeleted = mDeleted;
     }
 
     public SimpleStringProperty getNotes() {
         return mNotes;
     }
 
-    public void setNotes(SimpleStringProperty mNotes) {
-        this.mNotes = mNotes;
-    }
-
-    public SimpleDoubleProperty getValue() {
+    public SimpleStringProperty getValue() {
         return mValue;
-    }
-
-    public void setValue(SimpleDoubleProperty mValue) {
-        this.mValue = mValue;
     }
 
     public ObjectProperty<LocalDate> getCreated() {
         return mCreated;
     }
 
-    public void setCreated(ObjectProperty<LocalDate> mCreated) {
-        this.mCreated = mCreated;
-    }
-
     public SimpleBooleanProperty getIsSystem() {
         return mIsSystem;
-    }
-
-    public void setIsSystem(SimpleBooleanProperty mIsSystem) {
-        this.mIsSystem = mIsSystem;
     }
 
     public ObjectProperty<AccountView> getAccount() {
         return mAccount;
     }
 
-    public void setAccount(ObjectProperty<AccountView> mAccount) {
-        this.mAccount = mAccount;
-    }
-
     public ObjectProperty<CategoryView> getCategory() {
         return mCategory;
     }
-
-    public void setCategory(ObjectProperty<CategoryView> mCategory) {
-        this.mCategory = mCategory;
-    }
-        
 }

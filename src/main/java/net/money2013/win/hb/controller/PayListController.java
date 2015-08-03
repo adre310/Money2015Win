@@ -6,7 +6,6 @@
 package net.money2013.win.hb.controller;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -42,13 +41,13 @@ public class PayListController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
         payDateColumn.setCellValueFactory(cellData -> cellData.getValue().getCreated().asString());
-        payValueColumn.setCellValueFactory(cellData -> cellData.getValue().getValue().asString());
+        payValueColumn.setCellValueFactory(cellData -> cellData.getValue().getValue());
         payNotesColumn.setCellValueFactory(cellData -> cellData.getValue().getNotes());
     }    
     
     public void loadList() {
         Session session=HibernateUtil.getSessionFactory().openSession();
-        List resultList=session.createQuery("from PayDAL").list();
+        List resultList=session.createQuery("from PayDAL p WHERE p.isDeleted = 0 ORDER BY p.created DESC").list();
         ObservableList<PayView> viewList=FXCollections.observableArrayList();
         
         for(Object o : resultList) {

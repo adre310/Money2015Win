@@ -14,4 +14,14 @@ import com.google.gson.annotations.SerializedName;
 public class ResponseGSON {
     @SerializedName("data")
     private SendData mData;
+
+    public SendData getData() {
+        return mData;
+    }
+
+    public void setData(SendData mData) {
+        this.mData = mData;
+    }
+    
+    
 }
