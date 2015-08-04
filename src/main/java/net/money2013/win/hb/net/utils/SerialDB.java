@@ -7,9 +7,20 @@ package net.money2013.win.hb.net.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 import net.money2013.win.hb.dal.AccountDAL;
 import net.money2013.win.hb.dal.CategoryDAL;
 import net.money2013.win.hb.dal.PayDAL;
@@ -20,6 +31,8 @@ import net.money2013.win.hb.net.model.ResponseGSON;
 import net.money2013.win.hb.net.model.SendData;
 import net.money2013.win.hb.util.HibernateUtil;
 import org.hibernate.Session;
+import java.lang.reflect.Type;
+import java.text.ParseException;
 
 /**
  *
@@ -27,6 +40,29 @@ import org.hibernate.Session;
  */
 public class SerialDB {
 
+  private static class DateTypeAdapter implements JsonSerializer<Date>, JsonDeserializer<Date> {
+    private final DateFormat dateFormat;
+
+    private DateTypeAdapter() {
+      dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+0000", Locale.US);
+      dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+    }
+
+    @Override public synchronized JsonElement serialize(Date date, Type type,
+        JsonSerializationContext jsonSerializationContext) {
+      return new JsonPrimitive(dateFormat.format(date));
+    }
+
+    @Override public synchronized Date deserialize(JsonElement jsonElement, Type type,
+        JsonDeserializationContext jsonDeserializationContext) {
+      try {
+        return dateFormat.parse(jsonElement.getAsString());
+      } catch (ParseException e) {
+        throw new JsonParseException(e);
+      }
+    }
+  }
+    
     public static String serial() {
         SendData sendData=new SendData();
         
@@ -51,7 +87,8 @@ public class SerialDB {
         }
         
         Gson gson=new GsonBuilder()
-                        .setDateFormat("yyyy-MM-dd'T'HH:mm:ss+0000")
+                        .registerTypeAdapter(Date.class, new DateTypeAdapter())
+                        //.setDateFormat("yyyy-MM-dd'T'HH:mm:ss+0000")
                         //.setPrettyPrinting()
                         .create();
         
@@ -60,7 +97,8 @@ public class SerialDB {
     
     public static void deserial(String response) {
         Gson gson=new GsonBuilder()
-                        .setDateFormat("yyyy-MM-dd'T'HH:mm:ss+0000")
+                        //.setDateFormat("yyyy-MM-dd'T'HH:mm:ss+0000")
+                        .registerTypeAdapter(Date.class, new DateTypeAdapter())
                         .create();
         
         ResponseGSON data=gson.fromJson(response, ResponseGSON.class);
@@ -106,6 +144,9 @@ public class SerialDB {
             }
         }
         
+        session.getTransaction().commit();
+        session.beginTransaction();
+        
         for(CategoryGSON c : data.getData().getCategories()) {
             if(mapCategories.containsKey(c.getGuid())) {
                 CategoryDAL cDal=mapCategories.get(c.getGuid());
@@ -129,6 +170,9 @@ public class SerialDB {
                 mapCategories.put(c.getGuid(), cDal);
             }
         }
+
+        session.getTransaction().commit();
+        session.beginTransaction();
         
         for(PayGSON p : data.getData().getPays()) {
             List findList=session.createQuery("from PayDAL p WHERE p.guid = :guid")

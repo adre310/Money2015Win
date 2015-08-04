@@ -10,7 +10,7 @@
     <property name="connection.username"/>
     <property name="connection.password"/>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
-    <property name="hibernate.hbm2ddl.auto">create-drop</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
     <mapping class="net.money2013.win.hb.dal.PayDAL"/>
     <mapping class="net.money2013.win.hb.dal.AccountDAL"/>
     <mapping class="net.money2013.win.hb.dal.CategoryDAL"/>

@@ -78,7 +78,7 @@ public class MainClass extends Application {
 
         try {
             RestClient client=RestClient.getInstance();
-            gson=client.sendSyncData("test", "test", SerialDB.serial());
+            gson=client.sendSyncData("demo", "demo", SerialDB.serial());
             SerialDB.deserial(gson);
             //System.out.println(gson);
         } catch(Exception e) {
