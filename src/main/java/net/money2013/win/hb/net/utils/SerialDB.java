@@ -69,19 +69,19 @@ public class SerialDB {
         
         Session session=HibernateUtil.getSessionFactory().openSession();
         sendData.setDate(Configuration.getLastSync());
-        List accounts=session.createQuery("from Account a WHERE a.isModified = 1").list();
+        List accounts=session.createQuery("from Account a WHERE a.isModified = true").list();
         
         for(Object a : accounts) {
             sendData.getAccounts().add(new AccountGSON((Account)a));
         }
 
-        List categories=session.createQuery("from Category c WHERE c.isModified = 1").list();
+        List categories=session.createQuery("from Category c WHERE c.isModified = true").list();
         
         for(Object c : categories) {
             sendData.getCategories().add(new CategoryGSON((Category)c));
         }
 
-        List pays=session.createQuery("from Pay p WHERE p.isModified = 1").list();
+        List pays=session.createQuery("from Pay p WHERE p.isModified = true").list();
         
         for(Object p : pays) {
             sendData.getPays().add(new PayGSON((Pay)p));

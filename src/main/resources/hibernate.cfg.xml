@@ -5,8 +5,8 @@
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
     <property name="dialect">org.hibernate.dialect.DerbyTenFiveDialect</property>
-    <property name="connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
-    <property name="connection.url">jdbc:derby://localhost:1527/money2013win</property>
+    <property name="connection.driver_class">org.apache.derby.jdbc.EmbeddedDriver</property>
+    <property name="connection.url">jdbc:derby:money2015win.db;create=true</property>
     <property name="connection.username">guest</property>
     <property name="connection.password">guest</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>

@@ -47,7 +47,7 @@ public class PayListController implements Initializable {
     
     public void loadList() {
         Session session=HibernateUtil.getSessionFactory().openSession();
-        List resultList=session.createQuery("from Pay p WHERE p.isDeleted = 0 ORDER BY p.created DESC").list();
+        List resultList=session.createQuery("from Pay p WHERE p.isDeleted = false ORDER BY p.created DESC").list();
         ObservableList<PayView> viewList=FXCollections.observableArrayList();
         
         for(Object o : resultList) {
