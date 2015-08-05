@@ -4,15 +4,16 @@
   <session-factory>
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
-    <property name="dialect">org.hibernate.dialect.SQLiteDialect</property>
-    <property name="connection.driver_class">org.sqlite.JDBC</property>
-    <property name="connection.url">jdbc:sqlite:money.db</property>
-    <property name="connection.username"/>
-    <property name="connection.password"/>
+    <property name="dialect">org.hibernate.dialect.DerbyTenFiveDialect</property>
+    <property name="connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
+    <property name="connection.url">jdbc:derby://localhost:1527/money2013win</property>
+    <property name="connection.username">guest</property>
+    <property name="connection.password">guest</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
-    <mapping class="net.money2013.win.hb.dal.PayDAL"/>
-    <mapping class="net.money2013.win.hb.dal.AccountDAL"/>
-    <mapping class="net.money2013.win.hb.dal.CategoryDAL"/>
+    <mapping class="net.money2013.win.hb.dal.Pay"/>
+    <mapping class="net.money2013.win.hb.dal.Account"/>
+    <mapping class="net.money2013.win.hb.dal.Category"/>
+    <mapping class="net.money2013.win.hb.dal.Settings"/>
   </session-factory>
 </hibernate-configuration>

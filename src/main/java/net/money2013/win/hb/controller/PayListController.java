@@ -14,7 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import net.money2013.win.hb.dal.PayDAL;
+import net.money2013.win.hb.dal.Pay;
 import net.money2013.win.hb.util.HibernateUtil;
 import net.money2013.win.hb.view.PayView;
 import org.hibernate.Session;
@@ -47,11 +47,11 @@ public class PayListController implements Initializable {
     
     public void loadList() {
         Session session=HibernateUtil.getSessionFactory().openSession();
-        List resultList=session.createQuery("from PayDAL p WHERE p.isDeleted = 0 ORDER BY p.created DESC").list();
+        List resultList=session.createQuery("from Pay p WHERE p.isDeleted = 0 ORDER BY p.created DESC").list();
         ObservableList<PayView> viewList=FXCollections.observableArrayList();
         
         for(Object o : resultList) {
-            viewList.add(new PayView((PayDAL)o));
+            viewList.add(new PayView((Pay)o));
         }
         
         payTable.setItems(viewList);

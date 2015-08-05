@@ -15,9 +15,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import net.money2013.win.hb.controller.PayListController;
-import net.money2013.win.hb.dal.AccountDAL;
-import net.money2013.win.hb.dal.CategoryDAL;
-import net.money2013.win.hb.dal.PayDAL;
+import net.money2013.win.hb.dal.Account;
+import net.money2013.win.hb.dal.Category;
+import net.money2013.win.hb.dal.Pay;
 import net.money2013.win.hb.net.utils.RestClient;
 import net.money2013.win.hb.net.utils.SerialDB;
 import net.money2013.win.hb.util.HibernateUtil;
@@ -33,50 +33,9 @@ public class MainClass extends Application {
 
     
     public static void main(String[] args) {
-        Session session=HibernateUtil.getSessionFactory().openSession();
-/*
-        session.beginTransaction();
-        try {
-            for(int iA=0;iA<5;iA++) {
-                AccountDAL account=new AccountDAL();
-                account.setGuid(UUID.randomUUID().toString());
-                account.setModified(true);
-                account.setDeleted(false);
-                account.setNotes("notes");
-                account.setName("a"+Integer.toString(iA));
-                account.setCurrency("USD");
-                session.save(account);
-                for(int iP=0;iP<5;iP++) {
-                    PayDAL pay=new PayDAL();
-                    pay.setGuid(UUID.randomUUID().toString());
-                    pay.setModified(true);
-                    pay.setDeleted(false);
-                    pay.setValue(iP);
-                    pay.setCreated(new Date());
-                    pay.setAccount(account);
-                    pay.setNotes("notes");
-                    session.save(pay);
-                }
-            }
-            
-            for(int iC=0;iC<5;iC++) {
-                CategoryDAL category=new CategoryDAL();
-                category.setGuid(UUID.randomUUID().toString());
-                category.setModified(true);
-                category.setDeleted(false);
-                category.setNotes("notes");
-                category.setName("c"+Integer.toString(iC));
-                session.save(category);
-            }
-            session.getTransaction().commit();
-        } catch(Exception e) {            
-            session.getTransaction().rollback();
-            System.out.println("Exception:"+e.getLocalizedMessage());
-        }
-*/        
-        String gson;
 
         try {
+            String gson;
             RestClient client=RestClient.getInstance();
             gson=client.sendSyncData("demo", "demo", SerialDB.serial());
             SerialDB.deserial(gson);

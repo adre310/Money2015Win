@@ -21,9 +21,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
-import net.money2013.win.hb.dal.AccountDAL;
-import net.money2013.win.hb.dal.CategoryDAL;
-import net.money2013.win.hb.dal.PayDAL;
+import net.money2013.win.hb.dal.Account;
+import net.money2013.win.hb.dal.Category;
+import net.money2013.win.hb.dal.Pay;
 import net.money2013.win.hb.net.model.AccountGSON;
 import net.money2013.win.hb.net.model.CategoryGSON;
 import net.money2013.win.hb.net.model.PayGSON;
@@ -33,6 +33,7 @@ import net.money2013.win.hb.util.HibernateUtil;
 import org.hibernate.Session;
 import java.lang.reflect.Type;
 import java.text.ParseException;
+import net.money2013.win.hb.configuration.Configuration;
 
 /**
  *
@@ -67,23 +68,23 @@ public class SerialDB {
         SendData sendData=new SendData();
         
         Session session=HibernateUtil.getSessionFactory().openSession();
-        sendData.setDate(new Date(100,1,1));
-        List accounts=session.createQuery("from AccountDAL a WHERE a.isModified = 1").list();
+        sendData.setDate(Configuration.getLastSync());
+        List accounts=session.createQuery("from Account a WHERE a.isModified = 1").list();
         
         for(Object a : accounts) {
-            sendData.getAccounts().add(new AccountGSON((AccountDAL)a));
+            sendData.getAccounts().add(new AccountGSON((Account)a));
         }
 
-        List categories=session.createQuery("from CategoryDAL c WHERE c.isModified = 1").list();
+        List categories=session.createQuery("from Category c WHERE c.isModified = 1").list();
         
         for(Object c : categories) {
-            sendData.getCategories().add(new CategoryGSON((CategoryDAL)c));
+            sendData.getCategories().add(new CategoryGSON((Category)c));
         }
 
-        List pays=session.createQuery("from PayDAL p WHERE p.isModified = 1").list();
+        List pays=session.createQuery("from Pay p WHERE p.isModified = 1").list();
         
         for(Object p : pays) {
-            sendData.getPays().add(new PayGSON((PayDAL)p));
+            sendData.getPays().add(new PayGSON((Pay)p));
         }
         
         Gson gson=new GsonBuilder()
@@ -103,28 +104,29 @@ public class SerialDB {
         
         ResponseGSON data=gson.fromJson(response, ResponseGSON.class);
         
-        HashMap<String,AccountDAL> mapAccounts=new HashMap<String,AccountDAL>();
-        HashMap<String,CategoryDAL> mapCategories=new HashMap<String,CategoryDAL>();
+        HashMap<String,Account> mapAccounts=new HashMap<String,Account>();
+        HashMap<String,Category> mapCategories=new HashMap<String,Category>();
 
         Session session=HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        List accounts=session.createQuery("from AccountDAL a").list();
+        
+        List accounts=session.createQuery("from Account a").list();
         for(Object o : accounts) {
-            AccountDAL a=(AccountDAL)o;
+            Account a=(Account)o;
             if(!mapAccounts.containsKey(a.getGuid()))
                 mapAccounts.put(a.getGuid(), a);
         }
 
-        List categories=session.createQuery("from CategoryDAL c").list();        
+        List categories=session.createQuery("from Category c").list();        
         for(Object o : categories) {
-            CategoryDAL c=(CategoryDAL)o;
+            Category c=(Category)o;
             if(!mapCategories.containsKey(c.getGuid()))
                 mapCategories.put(c.getGuid(), c);
         }
 
         for(AccountGSON a : data.getData().getAccounts()) {
             if(mapAccounts.containsKey(a.getGuid())) {
-                AccountDAL aDal=mapAccounts.get(a.getGuid());
+                Account aDal=mapAccounts.get(a.getGuid());
                 aDal.setModified(false);
                 aDal.setDeleted(a.isDeleted());
                 aDal.setNotes(a.getNotes());
@@ -132,7 +134,7 @@ public class SerialDB {
                 aDal.setCurrency(a.getCurrency());
                 session.save(aDal);
             } else {
-                AccountDAL aDal=new AccountDAL();
+                Account aDal=new Account();
                 aDal.setGuid(a.getGuid());
                 aDal.setModified(false);
                 aDal.setDeleted(a.isDeleted());
@@ -149,7 +151,7 @@ public class SerialDB {
         
         for(CategoryGSON c : data.getData().getCategories()) {
             if(mapCategories.containsKey(c.getGuid())) {
-                CategoryDAL cDal=mapCategories.get(c.getGuid());
+                Category cDal=mapCategories.get(c.getGuid());
                 cDal.setModified(false);
                 cDal.setDeleted(c.isDeleted());
                 cDal.setNotes(c.getNotes());
@@ -158,7 +160,7 @@ public class SerialDB {
                 cDal.setTheme(c.getTheme());
                 session.save(cDal);               
             } else {
-                CategoryDAL cDal=new CategoryDAL();
+                Category cDal=new Category();
                 cDal.setGuid(c.getGuid());
                 cDal.setModified(false);
                 cDal.setDeleted(c.isDeleted());
@@ -175,11 +177,11 @@ public class SerialDB {
         session.beginTransaction();
         
         for(PayGSON p : data.getData().getPays()) {
-            List findList=session.createQuery("from PayDAL p WHERE p.guid = :guid")
+            List findList=session.createQuery("from Pay p WHERE p.guid = :guid")
                             .setParameter("guid", p.getGuid())
                             .list();
             if(findList==null || findList.isEmpty()) {
-                PayDAL pDal=new PayDAL();
+                Pay pDal=new Pay();
                 pDal.setGuid(p.getGuid());
                 pDal.setModified(false);
                 pDal.setDeleted(p.isDeleted());
@@ -199,7 +201,7 @@ public class SerialDB {
                 pDal.setSystem(p.isSystem());
                 session.save(pDal);
             } else {
-                PayDAL pDal=(PayDAL)findList.get(0);
+                Pay pDal=(Pay)findList.get(0);
                 pDal.setModified(false);
                 pDal.setDeleted(p.isDeleted());
                 pDal.setNotes(p.getNotes());
@@ -220,6 +222,8 @@ public class SerialDB {
             }
         }
         
-       session.getTransaction().commit();
+        Configuration.setLastSync(data.getData().getDate());
+        Configuration.save(session);
+        session.getTransaction().commit();
     }
 }

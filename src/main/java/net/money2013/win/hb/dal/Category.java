@@ -17,15 +17,15 @@ import javax.persistence.Table;
  * @author aisaev
  */
 @Entity
-@Table(name = "accounts")
-public class AccountDAL {
-
+@Table(name = "categories")
+public class Category {
     public static final String COL_GUID = "r_guid";
     public static final String COL_MODIFIED = "modified";
     public static final String COL_DELETED = "deleted";
     public static final String COL_NOTES = "notes";
     public static final String COL_NAME = "name";
-    public static final String COL_CURRENCY = "currency";
+    public static final String COL_ISDEFAULT = "is_default";
+    public static final String COL_THEME = "theme_id";
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -42,8 +42,10 @@ public class AccountDAL {
     
     @Column(name = COL_NAME,length = 255)
     private String name;
-    @Column(name = COL_CURRENCY,length = 10)
-    private String currency;
+    @Column(name = COL_ISDEFAULT)
+    private boolean isDefault;
+    @Column(name = COL_THEME)
+    private int theme;
 
     public long getId() {
         return id;
@@ -93,13 +95,20 @@ public class AccountDAL {
         this.name = mName;
     }
 
-    public String getCurrency() {
-        return currency;
+    public boolean isIsDefault() {
+        return isDefault;
     }
 
-    public void setCurrency(String mCurrency) {
-        this.currency = mCurrency;
+    public void setIsDefault(boolean mIsDefault) {
+        this.isDefault = mIsDefault;
     }
 
-    
+    public int getTheme() {
+        return theme;
+    }
+
+    public void setTheme(int mTheme) {
+        this.theme = mTheme;
+    }
+        
 }

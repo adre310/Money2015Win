@@ -7,7 +7,7 @@ package net.money2013.win.hb.net.model;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.Date;
-import net.money2013.win.hb.dal.PayDAL;
+import net.money2013.win.hb.dal.Pay;
 
 /**
  *
@@ -31,7 +31,7 @@ public class PayGSON {
     @SerializedName("is_system")
     private boolean mIsSystem;
 
-    public PayGSON(PayDAL pay) {
+    public PayGSON(Pay pay) {
         this.mGuid=pay.getGuid();
         this.mDeleted=pay.isDeleted();
         this.mNotes=pay.getNotes();

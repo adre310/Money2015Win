@@ -6,7 +6,7 @@
 package net.money2013.win.hb.net.model;
 
 import com.google.gson.annotations.SerializedName;
-import net.money2013.win.hb.dal.AccountDAL;
+import net.money2013.win.hb.dal.Account;
 
 /**
  *
@@ -24,7 +24,7 @@ public class AccountGSON {
     @SerializedName("currency")
     private String mCurrency;
 
-    public AccountGSON(AccountDAL account) {
+    public AccountGSON(Account account) {
         this.mGuid=account.getGuid();
         this.mDeleted=account.isDeleted();
         this.mNotes=account.getNotes();

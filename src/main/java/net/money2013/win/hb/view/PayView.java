@@ -15,7 +15,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import net.money2013.win.hb.dal.PayDAL;
+import net.money2013.win.hb.dal.Pay;
 import net.money2013.win.hb.util.CurrencyUtil;
 
 /**
@@ -34,7 +34,7 @@ public class PayView {
     private ObjectProperty<CategoryView> mCategory;
     private SimpleBooleanProperty mIsSystem;
 
-    public PayView(PayDAL pay) {
+    public PayView(Pay pay) {
         mId=new SimpleLongProperty(pay.getId());
         mGuid=new SimpleStringProperty(pay.getGuid());
         mModified=new SimpleBooleanProperty(pay.isModified());

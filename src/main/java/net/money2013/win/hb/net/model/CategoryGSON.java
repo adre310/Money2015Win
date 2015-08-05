@@ -6,7 +6,7 @@
 package net.money2013.win.hb.net.model;
 
 import com.google.gson.annotations.SerializedName;
-import net.money2013.win.hb.dal.CategoryDAL;
+import net.money2013.win.hb.dal.Category;
 
 /**
  *
@@ -26,7 +26,7 @@ public class CategoryGSON {
     @SerializedName("style")
     private int mTheme;
 
-    public CategoryGSON(CategoryDAL category) {
+    public CategoryGSON(Category category) {
         this.mGuid=category.getGuid();
         this.mDeleted=category.isDeleted();
         this.mNotes=category.getNotes();

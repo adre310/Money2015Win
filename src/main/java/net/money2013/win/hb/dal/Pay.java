@@ -22,7 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pays")
-public class PayDAL {
+public class Pay {
     public static final String COL_GUID = "r_guid";
     public static final String COL_MODIFIED = "modified";
     public static final String COL_DELETED = "deleted";
@@ -60,10 +60,10 @@ public class PayDAL {
     private int createdDay;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = COL_ACCOUNT)
-    private AccountDAL account;
+    private Account account;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = COL_CATEGORY)    
-    private CategoryDAL category;
+    private Category category;
     @Column(name = COL_ISSYSTEM)
     private boolean isSystem;
 
@@ -147,19 +147,19 @@ public class PayDAL {
         this.createdDay = mCreatedDay;
     }
 
-    public AccountDAL getAccount() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setAccount(AccountDAL mAccount) {
+    public void setAccount(Account mAccount) {
         this.account = mAccount;
     }
 
-    public CategoryDAL getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(CategoryDAL mCategory) {
+    public void setCategory(Category mCategory) {
         this.category = mCategory;
     }
 
