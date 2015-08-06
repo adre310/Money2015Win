@@ -9,6 +9,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -24,40 +25,34 @@ import net.money2013.win.hb.util.CurrencyUtil;
  */
 public class PayView {
     private SimpleLongProperty mId;
-    private SimpleStringProperty mGuid;
-    private SimpleBooleanProperty mModified;
-    private SimpleBooleanProperty mDeleted;
     private SimpleStringProperty mNotes;
     private SimpleStringProperty mValue;
     private ObjectProperty<LocalDate> mCreated;
-    private ObjectProperty<AccountView> mAccount;
-    private ObjectProperty<CategoryView> mCategory;
+    private SimpleStringProperty mAccount;
+    private SimpleStringProperty mCategory;
     private SimpleBooleanProperty mIsSystem;
 
+    public PayView(long mId, String mNotes, double mValue, Date mCreated, String mAccount, String currency, String mCategory, boolean mIsSystem) {
+        this.mId = new SimpleLongProperty( mId);
+        this.mNotes = new SimpleStringProperty(mNotes);
+        this.mValue=new SimpleStringProperty(CurrencyUtil.currencyToString(mValue,currency==null?"":currency));
+        this.mCreated=new SimpleObjectProperty<>(LocalDateTime.ofInstant(Instant.ofEpochMilli(mCreated.getTime()), ZoneId.systemDefault()).toLocalDate());
+        this.mAccount = new SimpleStringProperty(mAccount);
+        this.mCategory = new SimpleStringProperty(mCategory);
+        this.mIsSystem = new SimpleBooleanProperty(mIsSystem);
+    }
+
+    
+    
     public PayView(Pay pay) {
-        mId=new SimpleLongProperty(pay.getId());
-        mGuid=new SimpleStringProperty(pay.getGuid());
-        mModified=new SimpleBooleanProperty(pay.isModified());
-        mDeleted=new SimpleBooleanProperty(pay.isDeleted());
-        mNotes=new SimpleStringProperty(pay.getNotes());
-        mValue=new SimpleStringProperty(CurrencyUtil.currencyToString(pay.getValue(),pay.getAccount()==null?"":pay.getAccount().getCurrency()));
-        mCreated=new SimpleObjectProperty<LocalDate>(LocalDateTime.ofInstant(Instant.ofEpochMilli(pay.getCreated().getTime()), ZoneId.systemDefault()).toLocalDate());
+        this.mId=new SimpleLongProperty(pay.getId());
+        this.mNotes=new SimpleStringProperty(pay.getNotes());
+        this.mValue=new SimpleStringProperty(CurrencyUtil.currencyToString(pay.getValue(),pay.getAccount()==null?"":pay.getAccount().getCurrency()));
+        this.mCreated=new SimpleObjectProperty<LocalDate>(LocalDateTime.ofInstant(Instant.ofEpochMilli(pay.getCreated().getTime()), ZoneId.systemDefault()).toLocalDate());
     }
     
     public SimpleLongProperty getId() {
         return mId;
-    }
-
-    public SimpleStringProperty getGuid() {
-        return mGuid;
-    }
-
-    public SimpleBooleanProperty getModified() {
-        return mModified;
-    }
-
-    public SimpleBooleanProperty getDeleted() {
-        return mDeleted;
     }
 
     public SimpleStringProperty getNotes() {
@@ -76,11 +71,11 @@ public class PayView {
         return mIsSystem;
     }
 
-    public ObjectProperty<AccountView> getAccount() {
+    public SimpleStringProperty getAccount() {
         return mAccount;
     }
 
-    public ObjectProperty<CategoryView> getCategory() {
+    public SimpleStringProperty getCategory() {
         return mCategory;
     }
 }

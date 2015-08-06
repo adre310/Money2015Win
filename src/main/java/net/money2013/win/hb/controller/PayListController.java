@@ -6,6 +6,7 @@
 package net.money2013.win.hb.controller;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -47,11 +48,15 @@ public class PayListController implements Initializable {
     
     public void loadList() {
         Session session=HibernateUtil.getSessionFactory().openSession();
-        List resultList=session.createQuery("from Pay p WHERE p.isDeleted = false ORDER BY p.created DESC").list();
+        
+        //List accounts=session.createQuery("select a.id, sum(p.payValue) from Account a left outer join a.pays p group by a.id").list();
+        
+        List resultList=session.createQuery("select p.id,p.notes,p.payValue,p.created,a.name,a.currency,c.name,p.isSystem from Pay p left outer join p.account a left outer join p.category c WHERE p.isDeleted = false and a.isDeleted = false ORDER BY p.created DESC").list();
         ObservableList<PayView> viewList=FXCollections.observableArrayList();
         
         for(Object o : resultList) {
-            viewList.add(new PayView((Pay)o));
+            Object[] p=(Object[])o;
+            viewList.add(new PayView((long)p[0],(String)p[1],(double)p[2],(Date)p[3],(String)p[4],(String)p[5],(String)p[6],(boolean)p[7]));
         }
         
         payTable.setItems(viewList);

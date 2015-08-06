@@ -81,10 +81,11 @@ public class SerialDB {
             sendData.getCategories().add(new CategoryGSON((Category)c));
         }
 
-        List pays=session.createQuery("from Pay p WHERE p.isModified = true").list();
+        List pays=session.createQuery("select p.guid,p.isDeleted,p.notes,p.payValue,p.created,a.guid,c.guid,p.isSystem from Pay p left join p.account a left join p.category c WHERE p.isModified = true").list();
         
-        for(Object p : pays) {
-            sendData.getPays().add(new PayGSON((Pay)p));
+        for(Object o : pays) {
+            Object[] p=(Object[])o;
+            sendData.getPays().add(new PayGSON((String)p[0],(boolean)p[1],(String)p[2],(Double)p[3],(Date)p[4],(String)p[5],(String)p[6],(boolean)p[7]));
         }
         
         Gson gson=new GsonBuilder()

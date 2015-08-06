@@ -5,11 +5,15 @@
  */
 package net.money2013.win.hb.dal;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -45,6 +49,9 @@ public class Account {
     @Column(name = COL_CURRENCY,length = 10)
     private String currency;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
+    private Set<Pay> pays=new HashSet<>();
+    
     public long getId() {
         return id;
     }
@@ -101,5 +108,12 @@ public class Account {
         this.currency = mCurrency;
     }
 
+    public Set<Pay> getPays() {
+        return pays;
+    }
+
+    public void setPays(Set<Pay> pays) {
+        this.pays = pays;
+    }
     
 }

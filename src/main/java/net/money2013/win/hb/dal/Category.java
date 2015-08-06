@@ -5,11 +5,15 @@
  */
 package net.money2013.win.hb.dal;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,7 +30,7 @@ public class Category {
     public static final String COL_NAME = "name";
     public static final String COL_ISDEFAULT = "is_default";
     public static final String COL_THEME = "theme_id";
-
+ 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
@@ -46,6 +50,9 @@ public class Category {
     private boolean isDefault;
     @Column(name = COL_THEME)
     private int theme;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
+    private Set<Pay> pays=new HashSet<>();
 
     public long getId() {
         return id;
@@ -109,6 +116,14 @@ public class Category {
 
     public void setTheme(int mTheme) {
         this.theme = mTheme;
+    }
+
+    public Set<Pay> getPays() {
+        return pays;
+    }
+
+    public void setPays(Set<Pay> pays) {
+        this.pays = pays;
     }
         
 }

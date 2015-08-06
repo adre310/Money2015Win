@@ -47,7 +47,7 @@ public class Pay {
     @Column(name = COL_DELETED)
     private boolean isDeleted;
     @Column(name = COL_NOTES,length = 2000)
-    private String isNotes;
+    private String notes;
     @Column(name = COL_VALUE)
     private double payValue;
     @Column(name = COL_CREATED)
@@ -100,11 +100,11 @@ public class Pay {
     }
 
     public String getNotes() {
-        return isNotes;
+        return notes;
     }
 
     public void setNotes(String mNotes) {
-        this.isNotes = mNotes;
+        this.notes = mNotes;
     }
 
     public double getValue() {

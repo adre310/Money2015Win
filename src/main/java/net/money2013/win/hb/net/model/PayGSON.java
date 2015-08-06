@@ -31,17 +31,15 @@ public class PayGSON {
     @SerializedName("is_system")
     private boolean mIsSystem;
 
-    public PayGSON(Pay pay) {
-        this.mGuid=pay.getGuid();
-        this.mDeleted=pay.isDeleted();
-        this.mNotes=pay.getNotes();
-        this.mValue=pay.getValue();
-        this.mCreated=pay.getCreated();
-        if(pay.getAccount()!=null)
-            this.mAccountGuid=pay.getAccount().getGuid();
-        if(pay.getCategory()!=null)
-            this.mCategoryGuid=pay.getCategory().getGuid();
-        this.mIsSystem=pay.isSystem();
+    public PayGSON(String mGuid, boolean mDeleted, String mNotes, double mValue, Date mCreated, String mAccountGuid, String mCategoryGuid, boolean mIsSystem) {
+        this.mGuid = mGuid;
+        this.mDeleted = mDeleted;
+        this.mNotes = mNotes;
+        this.mValue = mValue;
+        this.mCreated = mCreated;
+        this.mAccountGuid = mAccountGuid;
+        this.mCategoryGuid = mCategoryGuid;
+        this.mIsSystem = mIsSystem;
     }
     
     public String getGuid() {
